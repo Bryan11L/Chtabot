@@ -1,0 +1,8 @@
+{
+  "name": "chatbot-espoch",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@google-cloud/dialogflow": "^6.6.0"
+  }
+}
