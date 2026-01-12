@@ -1,178 +1,230 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Chatbot ESPOCH</title>
+<meta charset="UTF-8">
+<title>Asistente Académico ESPOCH</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      background: url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1") no-repeat center center fixed;
-      background-size: cover;
-    }
+<style>
+:root {
+  --azul: #0a2a43;
+  --azul-claro: #103a5c;
+  --rojo: #8b1e2d;
+  --blanco: #ffffff;
+}
 
-    /* Barra superior */
-    .top-bar {
-      height: 60px;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      justify-content: space-between;
-    }
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
 
-    .top-bar button {
-      background: #d32f2f;
-      border: none;
-      color: white;
-      padding: 8px 15px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--azul), var(--azul-claro));
+  color: var(--blanco);
+}
 
-    /* Contenedor principal */
-    .container {
-      display: flex;
-      height: calc(100vh - 60px);
-    }
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+}
 
-    /* Chat */
-    .chat-box {
-      width: 35%;
-      background-color: rgba(255, 255, 255, 0.95);
-      margin: 20px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-    }
+header h1 {
+  font-size: 26px;
+  margin: 0;
+}
 
-    .chat-header {
-      background: #b71c1c;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-weight: bold;
-      border-radius: 10px 10px 0 0;
-    }
+nav a {
+  color: var(--blanco);
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 500;
+}
 
-    .chat-messages {
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-    }
+.nav-btn {
+  background: var(--blanco);
+  color: var(--azul);
+  padding: 10px 22px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+}
 
-    .chat-input {
-      display: flex;
-      border-top: 1px solid #ccc;
-    }
+/* MAIN */
+main {
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
-    .chat-input input {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      outline: none;
-    }
+.avatar {
+  width: 110px;
+  height: 110px;
+  background: var(--blanco);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+}
 
-    .chat-input button {
-      background: #b71c1c;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
+.avatar img {
+  width: 75px;
+}
 
-    /* Panel derecho */
-    .side-panel {
-      width: 25%;
-      margin: 20px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      padding: 20px;
-    }
+h2 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
 
-    .side-panel h3 {
-      text-align: center;
-    }
+.subtitle {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 35px;
+}
 
-    .social-icons {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-    }
+/* INPUT */
+.input-wrapper {
+  width: 65%;
+  max-width: 720px;
+  background: var(--blanco);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 8px 18px;
+}
 
-    .social-icons img {
-      width: 40px;
-      cursor: pointer;
-    }
+.input-wrapper input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 17px;
+}
 
-  </style>
+.input-wrapper button {
+  background: var(--rojo);
+  color: var(--blanco);
+  border: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* RESPONSE */
+#response {
+  margin-top: 28px;
+  max-width: 720px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* FOOTER */
+footer {
+  position: absolute;
+  bottom: 20px;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 32px;
+  }
+  .input-wrapper {
+    width: 90%;
+@media (max-width: 600px) {
+
+  header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  footer {
+    position: static;
+    margin-top: 30px;
+  }
+}
+
+</style>
 </head>
+
 <body>
 
-  <!-- Barra superior -->
-  <div class="top-bar">
-    <div>🤖 Chatbot ESPOCH</div>
-    <div>
-      <button>Inicio</button>
-      <button>Ayuda</button>
-      <button>Contacto</button>
-    </div>
+<header>
+  <h1>ESPOCH · Asistente Académico</h1>
+
+  <nav>
+    <a href="#">Inicio</a>
+    <a href="#">Admisiones</a>
+    <a href="#">Contacto</a>
+  </nav>
+
+  <a class="nav-btn" href="#">Iniciar chat</a>
+</header>
+
+<main>
+  <div class="avatar">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
   </div>
 
-  <!-- Contenedor -->
-  <div class="container">
-
-    <!-- Chat -->
-    <div class="chat-box">
-      <div class="chat-header">Asistente Virtual de Matrículas ESPOCH</div>
-
-      <div class="chat-messages" id="messages"></div>
-
-      <div class="chat-input">
-        <input id="userInput" type="text" placeholder="Escribe tu pregunta...">
-        <button onclick="sendMessage()">Enviar</button>
-      </div>
-    </div>
-
-    <!-- Panel derecho -->
-    <div class="side-panel">
-      <h3>Síguenos</h3>
-
-      <div class="social-icons">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
-      </div>
-    </div>
-
+  <h2>¿En qué puedo ayudarte hoy?</h2>
+  <div class="subtitle">
+    Información sobre matrículas, requisitos y procesos académicos
   </div>
 
-  <!-- JS -->
-  <script>
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const message = input.value;
-      if (!message) return;
+  <div class="input-wrapper">
+    <input id="userInput" type="text" placeholder="Escribe tu consulta aquí...">
+    <button onclick="sendMessage()">➤</button>
+  </div>
 
-      const messagesDiv = document.getElementById("messages");
+  <div id="response"></div>
+</main>
 
-      messagesDiv.innerHTML += `<p><b>Tú:</b> ${message}</p>`;
-      input.value = "";
+<footer>
+  Escuela Superior Politécnica de Chimborazo · Sistema de Asistencia Virtual
+</footer>
 
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message })
-      });
+<script>
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const message = input.value.trim();
+  if (!message) return;
 
-      const data = await res.json();
-      messagesDiv.innerHTML += `<p><b>Bot:</b> ${data.reply}</p>`;
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-  </script>
+  document.getElementById("response").innerText = "Procesando consulta...";
+
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message })
+  });
+
+  const data = await res.json();
+  document.getElementById("response").innerText = data.reply;
+  input.value = "";
+}
+</script>
 
 </body>
 </html>
