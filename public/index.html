@@ -71,7 +71,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .avatar img {
@@ -79,20 +79,58 @@ main {
 }
 
 h2 {
-  font-size: 42px;
+  font-size: 40px;
   margin-bottom: 10px;
 }
 
 .subtitle {
-  font-size: 18px;
+  font-size: 17px;
   opacity: 0.9;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
+}
+
+/* CHAT */
+#chat {
+  width: 65%;
+  max-width: 800px;
+  height: 320px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 15px;
+  overflow-y: auto;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.msg {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+.user {
+  background: #0b5ed7;
+  color: white;
+  margin-left: auto;
+}
+
+.bot {
+  background: #ffffff;
+  color: #000;
+}
+
+.error {
+  background: #dc3545;
+  color: white;
 }
 
 /* INPUT */
 .input-wrapper {
   width: 65%;
-  max-width: 720px;
+  max-width: 800px;
   background: var(--blanco);
   border-radius: 50px;
   display: flex;
@@ -104,7 +142,7 @@ h2 {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .input-wrapper button {
@@ -118,31 +156,16 @@ h2 {
   font-size: 18px;
 }
 
-/* RESPONSE */
-#response {
-  margin-top: 28px;
-  max-width: 720px;
-  font-size: 17px;
-  line-height: 1.6;
-}
-
 /* FOOTER */
 footer {
   position: absolute;
-  bottom: 20px;
-  font-size: 14px;
+  bottom: 15px;
+  font-size: 13px;
   opacity: 0.7;
 }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  h2 {
-    font-size: 32px;
-  }
-  .input-wrapper {
-    width: 90%;
-@media (max-width: 600px) {
-
   header {
     flex-direction: column;
     gap: 10px;
@@ -157,16 +180,16 @@ footer {
     font-size: 28px;
   }
 
-  .subtitle {
-    font-size: 15px;
+  #chat,
+  .input-wrapper {
+    width: 90%;
   }
 
   footer {
     position: static;
-    margin-top: 30px;
+    margin-top: 20px;
   }
 }
-
 </style>
 </head>
 
@@ -186,20 +209,22 @@ footer {
 
 <main>
   <div class="avatar">
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Bot">
   </div>
 
-  <h2>¿En qué puedo ayudarte hoy?</h2>
+  <h2>¿En qué puedo ayudarte?</h2>
   <div class="subtitle">
-    Información sobre matrículas, requisitos y procesos académicos
+    Consultas sobre matrículas, requisitos y procesos académicos
   </div>
 
+  <!-- HISTORIAL -->
+  <div id="chat"></div>
+
+  <!-- INPUT -->
   <div class="input-wrapper">
     <input id="userInput" type="text" placeholder="Escribe tu consulta aquí...">
     <button onclick="sendMessage()">➤</button>
   </div>
-
-  <div id="response"></div>
 </main>
 
 <footer>
@@ -207,23 +232,56 @@ footer {
 </footer>
 
 <script>
+const chat = document.getElementById("chat");
+
 async function sendMessage() {
   const input = document.getElementById("userInput");
   const message = input.value.trim();
   if (!message) return;
 
-  document.getElementById("response").innerText = "Procesando consulta...";
+  // Mensaje del usuario
+  chat.innerHTML += `
+    <div class="msg user">
+      <strong>Tú:</strong> ${message}
+    </div>
+  `;
 
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message })
-  });
-
-  const data = await res.json();
-  document.getElementById("response").innerText = data.reply;
+  chat.scrollTop = chat.scrollHeight;
   input.value = "";
+
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message })
+    });
+
+    if (!response.ok) throw new Error("Error de servidor");
+
+    const data = await response.json();
+
+    // Respuesta del bot
+    chat.innerHTML += `
+      <div class="msg bot">
+        <strong>Chatbot:</strong> ${data.reply}
+      </div>
+    `;
+
+    chat.scrollTop = chat.scrollHeight;
+
+  } catch (error) {
+    chat.innerHTML += `
+      <div class="msg error">
+        ❌ Error al conectar con el servidor
+      </div>
+    `;
+  }
 }
+
+// Enviar con ENTER
+document.getElementById("userInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") sendMessage();
+});
 </script>
 
 </body>
