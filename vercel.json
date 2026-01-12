@@ -2,7 +2,7 @@
   "builds": [
     {
       "src": "api/chat.js",
-      "use": "@vercel/node@18"
+      "use": "@vercel/node"
     }
   ]
 }
