@@ -2,43 +2,175 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Asistente Virtual ESPOCH</title>
+  <title>Chatbot ESPOCH</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      background: url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Barra superior */
+    .top-bar {
+      height: 60px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      justify-content: space-between;
+    }
+
+    .top-bar button {
+      background: #d32f2f;
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    /* Contenedor principal */
+    .container {
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+
+    /* Chat */
+    .chat-box {
+      width: 35%;
+      background-color: rgba(255, 255, 255, 0.95);
+      margin: 20px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-header {
+      background: #b71c1c;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: #b71c1c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    /* Panel derecho */
+    .side-panel {
+      width: 25%;
+      margin: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .side-panel h3 {
+      text-align: center;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .social-icons img {
+      width: 40px;
+      cursor: pointer;
+    }
+
+  </style>
 </head>
 <body>
 
-  <h2>Asistente Virtual ESPOCH</h2>
+  <!-- Barra superior -->
+  <div class="top-bar">
+    <div>🤖 Chatbot ESPOCH</div>
+    <div>
+      <button>Inicio</button>
+      <button>Ayuda</button>
+      <button>Contacto</button>
+    </div>
+  </div>
 
-  <input id="userInput" type="text" placeholder="Escribe tu pregunta">
-  <button onclick="sendMessage()">Enviar</button>
+  <!-- Contenedor -->
+  <div class="container">
 
-  <p id="response"></p>
+    <!-- Chat -->
+    <div class="chat-box">
+      <div class="chat-header">Asistente Virtual de Matrículas ESPOCH</div>
 
+      <div class="chat-messages" id="messages"></div>
+
+      <div class="chat-input">
+        <input id="userInput" type="text" placeholder="Escribe tu pregunta...">
+        <button onclick="sendMessage()">Enviar</button>
+      </div>
+    </div>
+
+    <!-- Panel derecho -->
+    <div class="side-panel">
+      <h3>Síguenos</h3>
+
+      <div class="social-icons">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JS -->
   <script>
     async function sendMessage() {
-      const message = document.getElementById("userInput").value;
+      const input = document.getElementById("userInput");
+      const message = input.value;
+      if (!message) return;
 
-      if (!message) {
-        alert("Escribe algo");
-        return;
-      }
+      const messagesDiv = document.getElementById("messages");
 
-      try {
-        const res = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
-        });
+      messagesDiv.innerHTML += `<p><b>Tú:</b> ${message}</p>`;
+      input.value = "";
 
-        const text = await res.text();
-        console.log("RESPUESTA CRUDA:", text);
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
 
-        const data = JSON.parse(text);
-        document.getElementById("response").innerText = data.reply;
-      } catch (err) {
-        console.error("ERROR:", err);
-        document.getElementById("response").innerText =
-          "❌ Error al conectar con la API";
-      }
+      const data = await res.json();
+      messagesDiv.innerHTML += `<p><b>Bot:</b> ${data.reply}</p>`;
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
   </script>
 
