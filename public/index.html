@@ -17,14 +17,28 @@
     async function sendMessage() {
       const message = document.getElementById("userInput").value;
 
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message })
-      });
+      if (!message) {
+        alert("Escribe algo");
+        return;
+      }
 
-      const data = await res.json();
-      document.getElementById("response").innerText = data.reply;
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+
+        const text = await res.text();
+        console.log("RESPUESTA CRUDA:", text);
+
+        const data = JSON.parse(text);
+        document.getElementById("response").innerText = data.reply;
+      } catch (err) {
+        console.error("ERROR:", err);
+        document.getElementById("response").innerText =
+          "❌ Error al conectar con la API";
+      }
     }
   </script>
 
