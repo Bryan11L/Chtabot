@@ -197,13 +197,11 @@ footer {
 
 <header>
   <h1>ESPOCH · Asistente Académico</h1>
-
   <nav>
     <a href="#">Inicio</a>
     <a href="#">Admisiones</a>
     <a href="#">Contacto</a>
   </nav>
-
   <a class="nav-btn" href="#">Iniciar chat</a>
 </header>
 
@@ -217,7 +215,7 @@ footer {
     Consultas sobre matrículas, requisitos y procesos académicos
   </div>
 
-  <!-- HISTORIAL -->
+  <!-- CHAT -->
   <div id="chat"></div>
 
   <!-- INPUT -->
@@ -237,13 +235,14 @@ const chat = document.getElementById("chat");
 async function sendMessage() {
   const input = document.getElementById("userInput");
   const message = input.value.trim();
+
   if (!message) return;
 
-  // Mensaje del usuario
-  HTML += `
+  // Mostrar mensaje del usuario
+  chat.innerHTML += `
     <div class="msg user">
       <strong>Tú:</strong> ${message}
-    </dichat.innerv>
+    </div>
   `;
 
   chat.scrollTop = chat.scrollHeight;
@@ -252,25 +251,27 @@ async function sendMessage() {
   try {
     const response = await fetch("/api/chat", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ message })
     });
 
-    if (!response.ok) throw new Error("Error de servidor");
+    if (!response.ok) {
+      throw new Error("Error en la API");
+    }
 
     const data = await response.json();
 
-    // Respuesta del bot
-// Formatear saltos de línea
-const formattedReply = data.reply.replace(/\n/g, "<br>");
+    // 🔑 FORMATO CORRECTO DE SALTOS DE LÍNEA
+    const formattedReply = data.reply.replace(/\n/g, "<br>");
 
-// Respuesta del bot
-chat.innerHTML += `
-  <div class="msg bot">
-    <strong>Chatbot:</strong><br>${formattedReply}
-  </div>
-`;
-
+    // Mostrar respuesta del bot
+    chat.innerHTML += `
+      <div class="msg bot">
+        <strong>Chatbot:</strong><br>${formattedReply}
+      </div>
+    `;
 
     chat.scrollTop = chat.scrollHeight;
 
@@ -280,12 +281,15 @@ chat.innerHTML += `
         ❌ Error al conectar con el servidor
       </div>
     `;
+    chat.scrollTop = chat.scrollHeight;
   }
 }
 
 // Enviar con ENTER
 document.getElementById("userInput").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") sendMessage();
+  if (e.key === "Enter") {
+    sendMessage();
+  }
 });
 </script>
 
