@@ -240,10 +240,10 @@ async function sendMessage() {
   if (!message) return;
 
   // Mensaje del usuario
-  chat.innerHTML += `
+  HTML += `
     <div class="msg user">
       <strong>Tú:</strong> ${message}
-    </div>
+    </dichat.innerv>
   `;
 
   chat.scrollTop = chat.scrollHeight;
@@ -261,11 +261,16 @@ async function sendMessage() {
     const data = await response.json();
 
     // Respuesta del bot
-    chat.innerHTML += `
-      <div class="msg bot">
-        <strong>Chatbot:</strong> ${data.reply}
-      </div>
-    `;
+// Formatear saltos de línea
+const formattedReply = data.reply.replace(/\n/g, "<br>");
+
+// Respuesta del bot
+chat.innerHTML += `
+  <div class="msg bot">
+    <strong>Chatbot:</strong><br>${formattedReply}
+  </div>
+`;
+
 
     chat.scrollTop = chat.scrollHeight;
 
