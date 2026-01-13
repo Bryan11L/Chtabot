@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Asistente Académico ESPOCH</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --azul-oscuro: #0a2a43;
@@ -21,19 +20,11 @@
     body {
       margin: 0;
       min-height: 100vh;
-      /* fondo degradado general */
       background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio), var(--morado));
       color: var(--blanco);
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-
-    header {
-      width: 100%;
-      height: 60px;
-      /* degradado sutil para el header */
-      background: linear-gradient(90deg, var(--azul-oscuro), var(--azul-medio));
     }
 
     main {
@@ -55,10 +46,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     .avatar img { width: 70px; }
+
+    .assistant-badge {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--blanco);
+      margin-bottom: 15px;
+      backdrop-filter: blur(8px);
+    }
 
     h2 { font-size: 34px; margin: 10px 0; }
     .subtitle { font-size: 16px; opacity: 0.9; margin-bottom: 20px; }
@@ -68,7 +70,6 @@
       max-width: 900px;
       height: 45vh;
       min-height: 350px;
-      /* efecto vidrio sobre el fondo degradado */
       background: rgba(255,255,255,0.15);
       backdrop-filter: blur(12px);
       border-radius: 18px;
@@ -78,7 +79,16 @@
       margin-bottom: 18px;
     }
 
-    .msg { margin-bottom: 14px; padding: 14px 18px; border-radius: 14px; max-width: 75%; line-height: 1.6; font-size: 15px; word-wrap: break-word; }
+    .msg {
+      margin-bottom: 14px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      max-width: 75%;
+      line-height: 1.6;
+      font-size: 15px;
+      word-wrap: break-word;
+    }
+
     .user { background: linear-gradient(135deg, #0b5ed7, #084298); color: white; margin-left: auto; }
     .bot { background: #ffffff; color: var(--gris-texto); }
     .error { background: #dc3545; color: white; }
@@ -94,7 +104,13 @@
       margin-bottom: 20px;
     }
 
-    .input-wrapper input { flex: 1; border: none; outline: none; font-size: 16px; }
+    .input-wrapper input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
     .input-wrapper button {
       background: var(--rojo);
       color: var(--blanco);
@@ -107,7 +123,7 @@
     }
 
     /* ========================= */
-    /* BOTONES CIRCULARES AL FINAL */
+    /* BOTONES CIRCULARES AL FINAL (ICONO OCUPA TODO EL CÍRCULO) */
     /* ========================= */
     .botones-circulares {
       display: flex;
@@ -117,16 +133,10 @@
       justify-content: center;
     }
 
-    .boton-circular {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      /* efecto degradado sutil para los botones */
-      background: linear-gradient(135deg, var(--azul-claro), var(--morado));
+    .boton-circular-logo {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       text-decoration: none;
       color: var(--blanco);
       font-size: 12px;
@@ -134,16 +144,27 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .boton-circular:hover {
+    .boton-circular-logo:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.25);
     }
 
-    .boton-circular img {
-      width: 36px;
-      height: 36px;
+    .boton-circular-logo .logo-bg {
+      width: 80px;
+      height: 80px;
+      background: var(--blanco);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 5px;
-      filter: brightness(0) invert(1); /* iconos blancos para que resalten sobre el degradado */
+      overflow: hidden;
+    }
+
+    .boton-circular-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     footer {
@@ -160,89 +181,103 @@
     }
   </style>
 </head>
-
 <body>
-  <header></header> <!-- header solo degradado -->
 
-  <main>
-    <div class="avatar">
-      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Chatbot">
-    </div>
+<main>
+  <div class="avatar">
+    <img src="/imagenes_bot/Logo principal2.jpg" alt="Chatbot">
+  </div>
 
-    <h2>¿En qué puedo ayudarte?</h2>
-    <div class="subtitle">
-      Consultas sobre matrículas, requisitos y procesos académicos
-    </div>
+  <div class="assistant-badge">
+    Asistente Académico ESPOCH
+  </div>
 
-    <div id="chat"></div>
+  <h2>¿En qué puedo ayudarte?</h2>
+  <div class="subtitle">
+    Consultas sobre matrículas, requisitos y procesos académicos
+  </div>
 
-    <div class="input-wrapper">
-      <input id="userInput" type="text" placeholder="Escribe tu consulta aquí...">
-      <button onclick="sendMessage()">➤</button>
-    </div>
+  <div id="chat"></div>
 
-    <div class="botones-circulares">
-      <a href="#" class="boton-circular">
-        <img src="TU_RUTA_IMAGEN_CALENDARIO" alt="Calendario">
-        Calendario
-      </a>
-      <a href="https://www.espoch.edu.ec" target="_blank" class="boton-circular">
-        <img src="TU_RUTA_IMAGEN_ESPOCH" alt="ESPOCH">
-        ESPOCH
-      </a>
-      <a href="https://www.facebook.com/espoch" target="_blank" class="boton-circular">
-        <img src="TU_RUTA_IMAGEN_FACEBOOK" alt="Facebook">
-        Facebook
-      </a>
-      <a href="https://www.instagram.com/espoch_ec" target="_blank" class="boton-circular">
-        <img src="TU_RUTA_IMAGEN_INSTAGRAM" alt="Instagram">
-        Instagram
-      </a>
-      <a href="#" class="boton-circular">
+  <div class="input-wrapper">
+    <input id="userInput" type="text" placeholder="Escribe tu consulta aquí...">
+    <button onclick="sendMessage()">➤</button>
+  </div>
+
+  <!-- BOTONES CIRCULARES -->
+  <div class="botones-circulares">
+    <a href="https://www.espoch.edu.ec/calendario-academico-2/" class="boton-circular-logo">
+      <div class="logo-bg">
+        <img src="/imagenes_bot/logo_calendario.jpg" alt="Calendario">
+      </div>
+      <span>Calendario</span>
+    </a>
+    <a href="https://www.espoch.edu.ec" target="_blank" class="boton-circular-logo">
+      <div class="logo-bg">
+        <img src="/imagenes_bot/logopagina.jpg" alt="ESPOCH">
+      </div>
+      <span>ESPOCH</span>
+    </a>
+    <a href="https://www.facebook.com/espochsedeorellana" target="_blank" class="boton-circular-logo">
+      <div class="logo-bg">
+        <img src="/imagenes_bot/logofb.jpg" alt="Facebook">
+      </div>
+      <span>Facebook</span>
+    </a>
+    <a href="https://www.tiktok.com/@espoch.edu.ec?lang=es-419" target="_blank" class="boton-circular-logo">
+      <div class="logo-bg">
+        <img src="/imagenes_bot/logtiktok.jpg" alt="TIK TOK">
+      </div>
+      <span>Tik Tok</span>
+    </a>
+    <a href="#" class="boton-circular-logo">
+      <div class="logo-bg">
         <img src="TU_RUTA_IMAGEN_CONTACTO" alt="Contacto">
-        Secretaría
-      </a>
-    </div>
-  </main>
+      </div>
+      <span>Secretaría</span>
+    </a>
+  </div>
+</main>
 
-  <footer>
-    Escuela Superior Politécnica de Chimborazo · Sede Orellana
-  </footer>
+<footer>
+  Escuela Superior Politécnica de Chimborazo · Sede Orellana
+</footer>
 
-  <script>
-    const chat = document.getElementById("chat");
-    const input = document.getElementById("userInput");
+<script>
+  const chat = document.getElementById("chat");
+  const input = document.getElementById("userInput");
 
-    async function sendMessage() {
-      const message = input.value.trim();
-      if (!message) return;
+  async function sendMessage() {
+    const message = input.value.trim();
+    if (!message) return;
 
-      chat.innerHTML += `<div class="msg user"><strong>Tú:</strong> ${message}</div>`;
+    chat.innerHTML += `<div class="msg user"><strong>Tú:</strong> ${message}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+    input.value = "";
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+
+      if (!response.ok) throw new Error("Error de servidor");
+
+      const data = await response.json();
+
+      chat.innerHTML += `<div class="msg bot"><strong>Chatbot:</strong><br>${data.reply.replace(/\n/g, "<br>")}</div>`;
       chat.scrollTop = chat.scrollHeight;
-      input.value = "";
 
-      try {
-        const response = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
-        });
-
-        if (!response.ok) throw new Error("Error de servidor");
-
-        const data = await response.json();
-
-        chat.innerHTML += `<div class="msg bot"><strong>Chatbot:</strong><br>${data.reply.replace(/\n/g, "<br>")}</div>`;
-        chat.scrollTop = chat.scrollHeight;
-
-      } catch (error) {
-        chat.innerHTML += `<div class="msg error">❌ Error al conectar con el servidor</div>`;
-      }
+    } catch (error) {
+      chat.innerHTML += `<div class="msg error">❌ Error al conectar con el servidor</div>`;
     }
+  }
 
-    input.addEventListener("keydown", function(e) {
-      if (e.key === "Enter") sendMessage();
-    });
-  </script>
+  input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") sendMessage();
+  });
+</script>
+
 </body>
 </html>
