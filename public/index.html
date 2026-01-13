@@ -1,297 +1,321 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Asistente Académico ESPOCH</title>
+  <!-- ========================= -->
+  <!-- CONFIGURACIÓN BÁSICA -->
+  <!-- ========================= -->
+  <meta charset="UTF-8">
+  <title>Asistente Académico ESPOCH</title>
 
-<style>
-:root {
-  --azul: #0a2a43;
-  --azul-claro: #103a5c;
-  --rojo: #8b1e2d;
-  --blanco: #ffffff;
-}
+  <!-- Tipografía moderna y limpia -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-* {
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
-}
+  <style>
+    /* ========================= */
+    /* VARIABLES DE COLOR */
+    /* ========================= */
+    :root {
+      --azul-oscuro: #0a2a43;
+      --azul-medio: #103a5c;
+      --rojo: #8b1e2d;
+      --blanco: #ffffff;
+      --gris-texto: #1f2937;
+    }
 
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(135deg, var(--azul), var(--azul-claro));
-  color: var(--blanco);
-}
+    /* ========================= */
+    /* CONFIGURACIÓN GLOBAL */
+    /* ========================= */
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
-/* HEADER */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 40px;
-}
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio));
+      color: var(--blanco);
+      display: flex;
+      flex-direction: column;
+    }
 
-header h1 {
-  font-size: 26px;
-  margin: 0;
-}
+    /* ========================= */
+    /* HEADER SUPERIOR */
+    /* ========================= */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+    }
 
-nav a {
-  color: var(--blanco);
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: 500;
-}
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
 
-.nav-btn {
-  background: var(--blanco);
-  color: var(--azul);
-  padding: 10px 22px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-}
+    nav a {
+      color: var(--blanco);
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+    }
 
-/* MAIN */
-main {
-  height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+    /* ========================= */
+    /* CONTENEDOR PRINCIPAL */
+    /* ========================= */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
 
-.avatar {
-  width: 110px;
-  height: 110px;
-  background: var(--blanco);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
+    /* Avatar del chatbot */
+    .avatar {
+      width: 100px;
+      height: 100px;
+      background: var(--blanco);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
 
-.avatar img {
-  width: 75px;
-}
+    .avatar img {
+      width: 70px;
+    }
 
-h2 {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
+    h2 {
+      font-size: 34px;
+      margin: 10px 0;
+    }
 
-.subtitle {
-  font-size: 17px;
-  opacity: 0.9;
-  margin-bottom: 25px;
-}
+    .subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
 
-/* CHAT */
-#chat {
-  width: 65%;
-  max-width: 800px;
-  height: 320px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 15px;
-  overflow-y: auto;
-  text-align: left;
-  margin-bottom: 20px;
-}
+    /* ========================= */
+    /* CONTENEDOR DEL CHAT */
+    /* ========================= */
+    #chat {
+      width: 70%;
+      max-width: 900px;
+      height: 45vh;              /* Altura adaptable */
+      min-height: 350px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 20px;
+      overflow-y: auto;
+      text-align: left;
+      margin-bottom: 18px;
+    }
 
-.msg {
-  margin-bottom: 12px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  max-width: 80%;
-  line-height: 1.4;
-}
+    /* ========================= */
+    /* MENSAJES */
+    /* ========================= */
+    .msg {
+      margin-bottom: 14px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      max-width: 75%;
+      line-height: 1.6;         /* Mejora lectura */
+      font-size: 15px;
+      word-wrap: break-word;
+    }
 
-.user {
-  background: #0b5ed7;
-  color: white;
-  margin-left: auto;
-}
+    /* Mensaje del usuario */
+    .user {
+      background: linear-gradient(135deg, #0b5ed7, #084298);
+      color: white;
+      margin-left: auto;
+    }
 
-.bot {
-  background: #ffffff;
-  color: #000;
-}
+    /* Mensaje del bot */
+    .bot {
+      background: #ffffff;
+      color: var(--gris-texto);
+    }
 
-.error {
-  background: #dc3545;
-  color: white;
-}
+    /* Error */
+    .error {
+      background: #dc3545;
+      color: white;
+    }
 
-/* INPUT */
-.input-wrapper {
-  width: 65%;
-  max-width: 800px;
-  background: var(--blanco);
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  padding: 8px 18px;
-}
+    /* ========================= */
+    /* INPUT DE MENSAJE */
+    /* ========================= */
+    .input-wrapper {
+      width: 70%;
+      max-width: 900px;
+      background: var(--blanco);
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+    }
 
-.input-wrapper input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 16px;
-}
+    .input-wrapper input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
 
-.input-wrapper button {
-  background: var(--rojo);
-  color: var(--blanco);
-  border: none;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px;
-}
+    .input-wrapper button {
+      background: var(--rojo);
+      color: var(--blanco);
+      border: none;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+    }
 
-/* FOOTER */
-footer {
-  position: absolute;
-  bottom: 15px;
-  font-size: 13px;
-  opacity: 0.7;
-}
+    /* ========================= */
+    /* FOOTER */
+    /* ========================= */
+    footer {
+      text-align: center;
+      font-size: 13px;
+      opacity: 0.7;
+      padding: 12px 0;
+    }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    gap: 10px;
-    padding: 15px;
-  }
+    /* ========================= */
+    /* RESPONSIVE (MÓVIL) */
+    /* ========================= */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+      }
 
-  nav {
-    display: none;
-  }
+      nav {
+        display: none;
+      }
 
-  h2 {
-    font-size: 28px;
-  }
+      h2 {
+        font-size: 26px;
+      }
 
-  #chat,
-  .input-wrapper {
-    width: 90%;
-  }
-
-  footer {
-    position: static;
-    margin-top: 20px;
-  }
-}
-</style>
+      #chat,
+      .input-wrapper {
+        width: 92%;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-  <h1>ESPOCH · Asistente Académico</h1>
-  <nav>
-    <a href="#">Inicio</a>
-    <a href="#">Admisiones</a>
-    <a href="#">Contacto</a>
-  </nav>
-  <a class="nav-btn" href="#">Iniciar chat</a>
-</header>
+  <!-- ========================= -->
+  <!-- HEADER -->
+  <!-- ========================= -->
+  <header>
+    <h1>ESPOCH · Asistente Académico</h1>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Matrículas</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </header>
 
-<main>
-  <div class="avatar">
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Bot">
-  </div>
-
-  <h2>¿En qué puedo ayudarte?</h2>
-  <div class="subtitle">
-    Consultas sobre matrículas, requisitos y procesos académicos
-  </div>
-
-  <!-- CHAT -->
-  <div id="chat"></div>
-
-  <!-- INPUT -->
-  <div class="input-wrapper">
-    <input id="userInput" type="text" placeholder="Escribe tu consulta aquí...">
-    <button onclick="sendMessage()">➤</button>
-  </div>
-</main>
-
-<footer>
-  Escuela Superior Politécnica de Chimborazo · Sistema de Asistencia Virtual
-</footer>
-
-<script>
-const chat = document.getElementById("chat");
-
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const message = input.value.trim();
-
-  if (!message) return;
-
-  // Mostrar mensaje del usuario
-  chat.innerHTML += `
-    <div class="msg user">
-      <strong>Tú:</strong> ${message}
+  <!-- ========================= -->
+  <!-- CONTENIDO PRINCIPAL -->
+  <!-- ========================= -->
+  <main>
+    <div class="avatar">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Chatbot">
     </div>
-  `;
 
-  chat.scrollTop = chat.scrollHeight;
-  input.value = "";
+    <h2>¿En qué puedo ayudarte?</h2>
+    <div class="subtitle">
+      Consultas sobre matrículas, requisitos y procesos académicos
+    </div>
 
-  try {
-    const response = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message })
-    });
+    <!-- HISTORIAL DEL CHAT -->
+    <div id="chat"></div>
 
-    if (!response.ok) {
-      throw new Error("Error en la API");
+    <!-- INPUT -->
+    <div class="input-wrapper">
+      <input id="userInput" type="text" placeholder="Escribe tu consulta aquí...">
+      <button onclick="sendMessage()">➤</button>
+    </div>
+  </main>
+
+  <!-- ========================= -->
+  <!-- FOOTER -->
+  <!-- ========================= -->
+  <footer>
+    Escuela Superior Politécnica de Chimborazo · Sede Orellana
+  </footer>
+
+  <!-- ========================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ========================= -->
+  <script>
+    const chat = document.getElementById("chat");
+    const input = document.getElementById("userInput");
+
+    // Función principal para enviar mensaje
+    async function sendMessage() {
+      const message = input.value.trim();
+      if (!message) return;
+
+      // Mostrar mensaje del usuario
+      chat.innerHTML += `
+        <div class="msg user">
+          <strong>Tú:</strong> ${message}
+        </div>
+      `;
+      chat.scrollTop = chat.scrollHeight;
+      input.value = "";
+
+      try {
+        // Llamada a la API de Dialogflow (Vercel)
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+
+        if (!response.ok) throw new Error("Error de servidor");
+
+        const data = await response.json();
+
+        // Mostrar respuesta del bot
+        chat.innerHTML += `
+          <div class="msg bot">
+            <strong>Chatbot:</strong><br>${data.reply.replace(/\n/g, "<br>")}
+          </div>
+        `;
+        chat.scrollTop = chat.scrollHeight;
+
+      } catch (error) {
+        // Mostrar error
+        chat.innerHTML += `
+          <div class="msg error">
+            ❌ Error al conectar con el servidor
+          </div>
+        `;
+      }
     }
 
-    const data = await response.json();
-
-    // 🔑 FORMATO CORRECTO DE SALTOS DE LÍNEA
-    const formattedReply = data.reply.replace(/\n/g, "<br>");
-
-    // Mostrar respuesta del bot
-    chat.innerHTML += `
-      <div class="msg bot">
-        <strong>Chatbot:</strong><br>${formattedReply}
-      </div>
-    `;
-
-    chat.scrollTop = chat.scrollHeight;
-
-  } catch (error) {
-    chat.innerHTML += `
-      <div class="msg error">
-        ❌ Error al conectar con el servidor
-      </div>
-    `;
-    chat.scrollTop = chat.scrollHeight;
-  }
-}
-
-// Enviar con ENTER
-document.getElementById("userInput").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") {
-    sendMessage();
-  }
-});
-</script>
+    // Enviar con ENTER
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
 
 </body>
 </html>
