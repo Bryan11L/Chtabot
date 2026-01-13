@@ -38,6 +38,7 @@
       padding-top: 20px;
     }
 
+    /* Avatar principal */
     .avatar {
       width: 100px;
       height: 100px;
@@ -51,6 +52,7 @@
 
     .avatar img { width: 70px; }
 
+    /* Badge debajo del avatar */
     .assistant-badge {
       background: rgba(255, 255, 255, 0.2);
       padding: 6px 14px;
@@ -65,6 +67,7 @@
     h2 { font-size: 34px; margin: 10px 0; }
     .subtitle { font-size: 16px; opacity: 0.9; margin-bottom: 20px; }
 
+    /* Chat */
     #chat {
       width: 70%;
       max-width: 900px;
@@ -93,6 +96,7 @@
     .bot { background: #ffffff; color: var(--gris-texto); }
     .error { background: #dc3545; color: white; }
 
+    /* Input */
     .input-wrapper {
       width: 70%;
       max-width: 900px;
@@ -122,9 +126,7 @@
       font-size: 18px;
     }
 
-    /* ========================= */
-    /* BOTONES CIRCULARES AL FINAL (ICONO OCUPA TODO EL CÍRCULO) */
-    /* ========================= */
+    /* Botones circulares al final */
     .botones-circulares {
       display: flex;
       gap: 20px;
@@ -184,10 +186,12 @@
 <body>
 
 <main>
+  <!-- Avatar -->
   <div class="avatar">
-    <img src="/public/imagenes_bot/Logo principal2.jpg" alt="Chatbot">
+    <img src="/imagenes_bot/Logo_principal2.jpg" alt="Chatbot">
   </div>
 
+  <!-- Badge del asistente -->
   <div class="assistant-badge">
     Asistente Académico ESPOCH
   </div>
@@ -197,42 +201,44 @@
     Consultas sobre matrículas, requisitos y procesos académicos
   </div>
 
+  <!-- Chat -->
   <div id="chat"></div>
 
+  <!-- Input -->
   <div class="input-wrapper">
     <input id="userInput" type="text" placeholder="Escribe tu consulta aquí...">
     <button onclick="sendMessage()">➤</button>
   </div>
 
-  <!-- BOTONES CIRCULARES -->
+  <!-- Botones circulares -->
   <div class="botones-circulares">
     <a href="https://www.espoch.edu.ec/calendario-academico-2/" class="boton-circular-logo">
       <div class="logo-bg">
-        <img src="/public/imagenes_bot/logo_calendario.jpg" alt="Calendario">
+        <img src="/imagenes_bot/logo_calendario.jpg" alt="Calendario">
       </div>
       <span>Calendario</span>
     </a>
     <a href="https://www.espoch.edu.ec" target="_blank" class="boton-circular-logo">
       <div class="logo-bg">
-        <img src="/public/imagenes_bot/logopagina.jpg" alt="ESPOCH">
+        <img src="/imagenes_bot/logopagina.jpg" alt="ESPOCH">
       </div>
       <span>ESPOCH</span>
     </a>
     <a href="https://www.facebook.com/espochsedeorellana" target="_blank" class="boton-circular-logo">
       <div class="logo-bg">
-        <img src="/public/imagenes_bot/logofb.jpg" alt="Facebook">
+        <img src="/imagenes_bot/logofb.jpg" alt="Facebook">
       </div>
       <span>Facebook</span>
     </a>
     <a href="https://www.tiktok.com/@espoch.edu.ec?lang=es-419" target="_blank" class="boton-circular-logo">
       <div class="logo-bg">
-        <img src="/public/imagenes_bot/logtiktok.jpg" alt="TIK TOK">
+        <img src="/imagenes_bot/logotiktok.jpg" alt="TikTok">
       </div>
-      <span>Tik Tok</span>
+      <span>TikTok</span>
     </a>
     <a href="#" class="boton-circular-logo">
       <div class="logo-bg">
-        <img src="TU_RUTA_IMAGEN_CONTACTO" alt="Contacto">
+        <img src="/imagenes_bot/logo_contacto.jpg" alt="Contacto">
       </div>
       <span>Secretaría</span>
     </a>
