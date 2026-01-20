@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Asistente Académico ESPOCH</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --azul-oscuro: #0a2a43;
@@ -15,7 +16,10 @@
       --gris-texto: #1f2937;
     }
 
-    * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
     body {
       margin: 0;
@@ -38,7 +42,47 @@
       padding-top: 20px;
     }
 
-    /* Avatar principal */
+    /* ========================= */
+    /* BOTÓN CALIFÍCANOS */
+    /* ========================= */
+    .btn-calificanos {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      text-decoration: none;
+      color: var(--blanco);
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .btn-calificanos .circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--blanco);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+
+    .btn-calificanos:hover .circle {
+      transform: scale(1.08);
+    }
+
+    .btn-calificanos img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .btn-calificanos span {
+      display: block;
+      margin-top: 6px;
+    }
+
+    /* Avatar */
     .avatar {
       width: 100px;
       height: 100px;
@@ -50,24 +94,30 @@
       margin-bottom: 10px;
     }
 
-    .avatar img { width: 70px; }
+    .avatar img {
+      width: 70px;
+    }
 
-    /* Badge debajo del avatar */
     .assistant-badge {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.2);
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 14px;
-      font-weight: 500;
-      color: var(--blanco);
       margin-bottom: 15px;
       backdrop-filter: blur(8px);
     }
 
-    h2 { font-size: 34px; margin: 10px 0; }
-    .subtitle { font-size: 16px; opacity: 0.9; margin-bottom: 20px; }
+    h2 {
+      font-size: 34px;
+      margin: 10px 0;
+    }
 
-    /* Chat */
+    .subtitle {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
     #chat {
       width: 70%;
       max-width: 900px;
@@ -89,14 +139,19 @@
       max-width: 75%;
       line-height: 1.6;
       font-size: 15px;
-      word-wrap: break-word;
     }
 
-    .user { background: linear-gradient(135deg, #0b5ed7, #084298); color: white; margin-left: auto; }
-    .bot { background: #ffffff; color: var(--gris-texto); }
-    .error { background: #dc3545; color: white; }
+    .user {
+      background: linear-gradient(135deg, #0b5ed7, #084298);
+      color: white;
+      margin-left: auto;
+    }
 
-    /* Input */
+    .bot {
+      background: #ffffff;
+      color: var(--gris-texto);
+    }
+
     .input-wrapper {
       width: 70%;
       max-width: 900px;
@@ -126,72 +181,37 @@
       font-size: 18px;
     }
 
-    /* Botones circulares al final */
-    .botones-circulares {
-      display: flex;
-      gap: 20px;
-      margin: 25px 0;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .boton-circular-logo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: var(--blanco);
-      font-size: 12px;
-      font-weight: 500;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .boton-circular-logo:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
-    }
-
-    .boton-circular-logo .logo-bg {
-      width: 80px;
-      height: 80px;
-      background: var(--blanco);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 5px;
-      overflow: hidden;
-    }
-
-    .boton-circular-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
     footer {
-      text-align: center;
       font-size: 13px;
       opacity: 0.7;
       padding: 12px 0;
     }
 
     @media (max-width: 768px) {
-      h2 { font-size: 26px; }
-      #chat, .input-wrapper { width: 92%; }
-      .botones-circulares { gap: 15px; }
+      #chat, .input-wrapper {
+        width: 92%;
+      }
     }
   </style>
 </head>
+
 <body>
 
+<!-- BOTÓN CALIFÍCANOS -->
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSe7-YNJ7MPEmIL8CmJWaJhAFDJUoSQGX_P4jUHST0rz_pjAFw/viewform"
+   target="_blank"
+   class="btn-calificanos">
+  <div class="circle">
+    <img src="/imagenes_bot/calificanos.jpg" alt="Califícanos">
+  </div>
+  <span>Califícanos</span>
+</a>
+
 <main>
-  <!-- Avatar -->
   <div class="avatar">
     <img src="/imagenes_bot/logoprincipal.jpg" alt="Chatbot">
   </div>
 
-  <!-- Badge del asistente -->
   <div class="assistant-badge">
     Asistente Académico ESPOCH
   </div>
@@ -201,47 +221,11 @@
     Consultas sobre matrículas, requisitos y procesos académicos
   </div>
 
-  <!-- Chat -->
   <div id="chat"></div>
 
-  <!-- Input -->
   <div class="input-wrapper">
     <input id="userInput" type="text" placeholder="Escribe tu consulta aquí...">
     <button onclick="sendMessage()">➤</button>
-  </div>
-
-  <!-- Botones circulares -->
-  <div class="botones-circulares">
-    <a href="https://www.espoch.edu.ec/calendario-academico-2/" class="boton-circular-logo">
-      <div class="logo-bg">
-        <img src="/imagenes_bot/logocalendario.jpg" alt="Calendario">
-      </div>
-      <span>Calendario</span>
-    </a>
-    <a href="https://www.espoch.edu.ec" target="_blank" class="boton-circular-logo">
-      <div class="logo-bg">
-        <img src="/imagenes_bot/logopagina.jpg" alt="ESPOCH">
-      </div>
-      <span>ESPOCH</span>
-    </a>
-    <a href="https://www.facebook.com/espochsedeorellana" target="_blank" class="boton-circular-logo">
-      <div class="logo-bg">
-        <img src="/imagenes_bot/logofb.jpg" alt="Facebook">
-      </div>
-      <span>Facebook</span>
-    </a>
-    <a href="https://www.tiktok.com/@espoch.edu.ec?lang=es-419" target="_blank" class="boton-circular-logo">
-      <div class="logo-bg">
-        <img src="/imagenes_bot/logotiktok.jpg" alt="TikTok">
-      </div>
-      <span>TikTok</span>
-    </a>
-    <a href="https://maps.app.goo.gl/AJcb4gwCRVeYU23s8" class="boton-circular-logo">
-      <div class="logo-bg">
-        <img src="/imagenes_bot/logo_ubicacion.jpg" alt="Contacto">
-      </div>
-      <span>Secretaría</span>
-    </a>
   </div>
 </main>
 
@@ -268,19 +252,17 @@
         body: JSON.stringify({ message })
       });
 
-      if (!response.ok) throw new Error("Error de servidor");
-
       const data = await response.json();
 
-      chat.innerHTML += `<div class="msg bot"><strong>Chatbot:</strong><br>${data.reply.replace(/\n/g, "<br>")}</div>`;
+      chat.innerHTML += `<div class="msg bot"><strong>Chatbot:</strong><br>${data.reply}</div>`;
       chat.scrollTop = chat.scrollHeight;
 
-    } catch (error) {
-      chat.innerHTML += `<div class="msg error">❌ Error al conectar con el servidor</div>`;
+    } catch {
+      chat.innerHTML += `<div class="msg bot">Error de conexión</div>`;
     }
   }
 
-  input.addEventListener("keydown", function(e) {
+  input.addEventListener("keydown", e => {
     if (e.key === "Enter") sendMessage();
   });
 </script>
