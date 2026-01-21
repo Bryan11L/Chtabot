@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Asistente Académico ESPOCH</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
@@ -24,7 +25,12 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio), var(--morado));
+      background: linear-gradient(
+        135deg,
+        var(--azul-oscuro),
+        var(--azul-medio),
+        var(--morado)
+      );
       color: var(--blanco);
       display: flex;
       flex-direction: column;
@@ -33,51 +39,12 @@
 
     main {
       flex: 1;
+      width: 100%;
+      padding-top: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       text-align: center;
-      width: 100%;
-      padding-top: 40px;
-    }
-
-    /* BOTÓN CALIFICANOS */
-    .btn-calificanos {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      text-decoration: none;
-      color: var(--blanco);
-      font-size: 12px;
-      font-weight: 500;
-      text-align: center;
-    }
-
-    .btn-calificanos .circle {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: var(--blanco);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
-      transition: transform 0.2s;
-    }
-
-    .btn-calificanos:hover .circle {
-      transform: scale(1.08);
-    }
-
-    .btn-calificanos img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .btn-calificanos span {
-      display: block;
-      margin-top: 6px;
     }
 
     /* Avatar */
@@ -96,11 +63,13 @@
       width: 70px;
     }
 
+    /* Badge */
     .assistant-badge {
       background: rgba(255, 255, 255, 0.2);
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 14px;
+      font-weight: 500;
       margin-bottom: 15px;
       backdrop-filter: blur(8px);
     }
@@ -120,9 +89,9 @@
     #chat {
       width: 70%;
       max-width: 900px;
-      height: 45vh;
       min-height: 350px;
-      background: rgba(255,255,255,0.15);
+      height: 45vh;
+      background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(12px);
       border-radius: 18px;
       padding: 20px;
@@ -138,6 +107,7 @@
       max-width: 75%;
       line-height: 1.6;
       font-size: 15px;
+      word-wrap: break-word;
     }
 
     .user {
@@ -186,7 +156,7 @@
       font-size: 18px;
     }
 
-    /* Botones circulares inferiores */
+    /* Botones */
     .botones-circulares {
       display: flex;
       gap: 20px;
@@ -202,11 +172,13 @@
       text-decoration: none;
       color: var(--blanco);
       font-size: 12px;
-      transition: transform 0.2s;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .boton-circular-logo:hover {
       transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
     }
 
     .logo-bg {
@@ -214,8 +186,11 @@
       height: 80px;
       background: var(--blanco);
       border-radius: 50%;
-      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 5px;
+      overflow: hidden;
     }
 
     .logo-bg img {
@@ -227,106 +202,133 @@
     footer {
       font-size: 13px;
       opacity: 0.7;
-      padding-bottom: 12px;
+      padding: 12px 0;
     }
 
     @media (max-width: 768px) {
-      h2 { font-size: 26px; }
-      #chat, .input-wrapper { width: 92%; }
+      h2 {
+        font-size: 26px;
+      }
+
+      #chat,
+      .input-wrapper {
+        width: 92%;
+      }
     }
   </style>
 </head>
 
 <body>
+  <main>
+    <div class="avatar">
+      <img src="/imagenes_bot/logoprincipal.jpg" alt="Chatbot">
+    </div>
 
-<!-- BOTÓN CALIFICANOS -->
-<a href="https://TU_LINK_DE_ENCUESTA_AQUI" target="_blank" class="btn-calificanos">
-  <div class="circle">
-    <img src="/imagenes_bot/calificanos.jpg" alt="Califícanos">
-  </div>
-  <span>Califícanos</span>
-</a>
+    <div class="assistant-badge">
+      Asistente Académico ESPOCH
+    </div>
 
-<main>
-  <div class="avatar">
-    <img src="/imagenes_bot/logoprincipal.jpg" alt="Chatbot">
-  </div>
+    <h2>¿En qué puedo ayudarte?</h2>
+    <div class="subtitle">
+      Consultas sobre matrículas, requisitos y procesos académicos
+    </div>
 
-  <div class="assistant-badge">Asistente Académico ESPOCH</div>
+    <div id="chat"></div>
 
-  <h2>¿En qué puedo ayudarte?</h2>
-  <div class="subtitle">Consultas sobre matrículas y procesos académicos</div>
+    <div class="input-wrapper">
+      <input id="userInput" type="text" placeholder="Escribe tu consulta aquí...">
+      <button onclick="sendMessage()">➤</button>
+    </div>
 
-  <div id="chat"></div>
+    <div class="botones-circulares">
+      <a href="https://www.espoch.edu.ec/calendario-academico-2/" class="boton-circular-logo">
+        <div class="logo-bg">
+          <img src="/imagenes_bot/logocalendario.jpg" alt="Calendario">
+        </div>
+        <span>Calendario</span>
+      </a>
 
-  <div class="input-wrapper">
-    <input id="userInput" type="text" placeholder="Escribe tu consulta aquí...">
-    <button onclick="sendMessage()">➤</button>
-  </div>
+      <a href="https://www.espoch.edu.ec" target="_blank" class="boton-circular-logo">
+        <div class="logo-bg">
+          <img src="/imagenes_bot/logopagina.jpg" alt="ESPOCH">
+        </div>
+        <span>ESPOCH</span>
+      </a>
 
-  <div class="botones-circulares">
-    <a href="https://www.espoch.edu.ec/calendario-academico-2/" class="boton-circular-logo">
-      <div class="logo-bg"><img src="/imagenes_bot/logocalendario.jpg"></div>
-      <span>Calendario</span>
-    </a>
+      <a href="https://www.facebook.com/espochsedeorellana" target="_blank" class="boton-circular-logo">
+        <div class="logo-bg">
+          <img src="/imagenes_bot/logofb.jpg" alt="Facebook">
+        </div>
+        <span>Facebook</span>
+      </a>
 
-    <a href="https://www.espoch.edu.ec" class="boton-circular-logo" target="_blank">
-      <div class="logo-bg"><img src="/imagenes_bot/logopagina.jpg"></div>
-      <span>ESPOCH</span>
-    </a>
+      <a href="https://www.tiktok.com/@espoch.edu.ec?lang=es-419" target="_blank" class="boton-circular-logo">
+        <div class="logo-bg">
+          <img src="/imagenes_bot/logotiktok.jpg" alt="TikTok">
+        </div>
+        <span>TikTok</span>
+      </a>
 
-    <a href="https://www.facebook.com/espochsedeorellana" class="boton-circular-logo" target="_blank">
-      <div class="logo-bg"><img src="/imagenes_bot/logofb.jpg"></div>
-      <span>Facebook</span>
-    </a>
+      <a href="https://maps.app.goo.gl/AJcb4gwCRVeYU23s8" class="boton-circular-logo">
+        <div class="logo-bg">
+          <img src="/imagenes_bot/logo_ubicacion.jpg" alt="Ubicación">
+        </div>
+        <span>Ubicación</span>
+      </a>
+    </div>
+  </main>
 
-    <a href="https://www.tiktok.com/@espoch.edu.ec" class="boton-circular-logo" target="_blank">
-      <div class="logo-bg"><img src="/imagenes_bot/logotiktok.jpg"></div>
-      <span>TikTok</span>
-    </a>
+  <footer>
+    Escuela Superior Politécnica de Chimborazo · Sede Orellana
+  </footer>
 
-    <a href="https://maps.app.goo.gl/AJcb4gwCRVeYU23s8" class="boton-circular-logo">
-      <div class="logo-bg"><img src="/imagenes_bot/logo_ubicacion.jpg"></div>
-      <span>Ubicación</span>
-    </a>
-  </div>
-</main>
+  <script>
+    const chat = document.getElementById("chat");
+    const input = document.getElementById("userInput");
 
-<footer>
-  Escuela Superior Politécnica de Chimborazo · Sede Orellana
-</footer>
+    async function sendMessage() {
+      const message = input.value.trim();
+      if (!message) return;
 
-<script>
-  const chat = document.getElementById("chat");
-  const input = document.getElementById("userInput");
-
-  async function sendMessage() {
-    const message = input.value.trim();
-    if (!message) return;
-
-    chat.innerHTML += `<div class="msg user"><strong>Tú:</strong> ${message}</div>`;
-    input.value = "";
-    chat.scrollTop = chat.scrollHeight;
-
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message })
-      });
-
-      const data = await res.json();
-      chat.innerHTML += `<div class="msg bot"><strong>Chatbot:</strong><br>${data.reply}</div>`;
+      chat.innerHTML += `
+        <div class="msg user">
+          <strong>Tú:</strong> ${message}
+        </div>
+      `;
       chat.scrollTop = chat.scrollHeight;
-    } catch {
-      chat.innerHTML += `<div class="msg error">Error de conexión</div>`;
+      input.value = "";
+
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+
+        if (!response.ok) throw new Error("Error de servidor");
+
+        const data = await response.json();
+
+        chat.innerHTML += `
+          <div class="msg bot">
+            <strong>Chatbot:</strong><br>
+            ${data.reply.replace(/\n/g, "<br>")}
+          </div>
+        `;
+        chat.scrollTop = chat.scrollHeight;
+
+      } catch (error) {
+        chat.innerHTML += `
+          <div class="msg error">
+            ❌ Error al conectar con el servidor
+          </div>
+        `;
+      }
     }
-  }
 
-  input.addEventListener("keydown", e => {
-    if (e.key === "Enter") sendMessage();
-  });
-</script>
-
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
 </body>
 </html>
